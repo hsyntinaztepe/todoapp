@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:todoapp/pages/first_page.dart';
 import 'package:todoapp/pages/home_page.dart';
-import 'package:todoapp/pages/settings_page.dart';
 
 void main() {
   runApp(const MyApp());
