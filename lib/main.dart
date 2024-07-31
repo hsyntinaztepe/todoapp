@@ -16,16 +16,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primarySwatch: Colors.yellow,
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.deepPurple[400],
+          backgroundColor: Colors.yellow,
         ),
       ),
-      home: FirstPage(),
-      routes: {
-        "/settingspage": (context) => SettingsPage(),
-        "/homepage": (context) => HomePage(),
-        "/firstpage": (context) => FirstPage(),
-      },
+      home: HomePage(),
     );
   }
 }
