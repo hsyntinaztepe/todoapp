@@ -20,6 +20,14 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void createNewTask(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +38,9 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          createNewTask(context);
+        },
         child: Icon(Icons.add),
         backgroundColor: Colors.yellow,
       ),
