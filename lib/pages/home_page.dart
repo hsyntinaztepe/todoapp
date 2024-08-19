@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/utilities/dialog_box.dart';
 import 'package:todoapp/utilities/todo_tile.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
+
+final _controller = TextEditingController();
 
 class _HomePageState extends State<HomePage> {
   List toDoList = [
@@ -20,12 +23,31 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void createNewTask(BuildContext context) {
+  void saveNewTask() {
+    setState(() {
+      toDoList.add([_controller.text, false]);
+      _controller.clear();
+    });
+    Navigator.of(context).pop();
+  }
+
+  void createNewTask() {
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog();
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return DialogBox(
+          controller: _controller,
+          onSave: saveNewTask,
+          onCancel: () => Navigator.of(context).pop(),
+        );
+      },
+    );
+  }
+
+  void deleteTask(int index) {
+    setState(() {
+      toDoList.removeAt(index);
+    });
   }
 
   @override
@@ -34,13 +56,11 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.yellow[200],
       appBar: AppBar(
         centerTitle: true,
-        title: Text("TO DO"),
+        title: Text("TO DO app"),
         elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          createNewTask(context);
-        },
+        onPressed: createNewTask,
         child: Icon(Icons.add),
         backgroundColor: Colors.yellow,
       ),
@@ -51,6 +71,7 @@ class _HomePageState extends State<HomePage> {
             taskName: toDoList[index][0],
             taskCompleted: toDoList[index][1],
             onChanged: (value) => checkBoxChanged(value, index),
+            deleteFunction: (context) => deleteTask(index),
           );
         },
       ),

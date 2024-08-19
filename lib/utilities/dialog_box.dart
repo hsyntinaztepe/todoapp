@@ -1,42 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/utilities/my_button.dart';
 
 class DialogBox extends StatelessWidget {
-  const DialogBox({super.key});
+  final controller;
+  VoidCallback onSave;
+  VoidCallback onCancel;
+
+  DialogBox(
+      {super.key,
+      required this.controller,
+      required this.onSave,
+      required this.onCancel});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      elevation: 8,
-      title: Text(
-        'New Task',
-        style: TextStyle(color: Colors.blueAccent),
-      ),
+      backgroundColor: Colors.yellow[200],
       content: Container(
         height: 120,
         child: Column(
           children: [
-            TextField(),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Enter task name",
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                MyButton(text: "Save", onPressed: onSave),
+                const SizedBox(width: 2),
+                MyButton(text: "Cancel", onPressed: onCancel),
+              ],
+            )
           ],
         ),
       ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () {
-            // Perform some action
-            Navigator.of(context).pop();
-          },
-          child: Text('OK'),
-        ),
-      ],
     );
   }
 }
